@@ -212,6 +212,8 @@ module.exports = (env, argv) => ({
         new webpack.ProgressPlugin(),
         new webpack.EnvironmentPlugin({
             SENTRY_DSN: null,
+            API_URL: null,
+            OLD_API_URL: null,
             ...env,
             DEBUG: argv.mode !== 'production',
             VERSION: pachageJson.version,

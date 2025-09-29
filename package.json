@@ -6,8 +6,8 @@
     "private": true,
     "license": "gpl-2.0",
     "scripts": {
-        "start": "webpack serve --mode development",
-        "start-prod": "webpack serve --mode production",
+        "start": "echo \"Starting with OLD_API_URL=${OLD_API_URL} and API_URL=${API_URL}\" && webpack serve --mode development",
+        "start-prod": "echo \"Starting with OLD_API_URL=${OLD_API_URL} and API_URL=${API_URL}\" && webpack serve --mode production",
         "build": "webpack --mode production",
         "test": "jest",
         "lint": "eslint src",
