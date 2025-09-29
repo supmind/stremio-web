@@ -24,6 +24,8 @@ const Player = forwardRef<HTMLDivElement, Props>(({ profile }: Props, ref) => {
         nextVideoPopupDurationSelect,
         bingeWatchingToggle,
         playInBackgroundToggle,
+        hardwareDecodingToggle,
+        pauseOnMinimizeToggle,
     } = usePlayerOptions(profile);
 
     return (
@@ -109,6 +111,26 @@ const Player = forwardRef<HTMLDivElement, Props>(({ profile }: Props, ref) => {
                         {...nextVideoPopupDurationSelect}
                     />
                 </Option>
+            </Category>
+            <Category icon={'glasses'} label={'SETTINGS_SECTION_ADVANCED'}>
+                {
+                    shell.active &&
+                        <Option label={'SETTINGS_HWDEC'}>
+                            <Toggle
+                                tabIndex={-1}
+                                {...hardwareDecodingToggle}
+                            />
+                        </Option>
+                }
+                {
+                    shell.active &&
+                        <Option label={'SETTINGS_PAUSE_MINIMIZED'}>
+                            <Toggle
+                                tabIndex={-1}
+                                {...pauseOnMinimizeToggle}
+                            />
+                        </Option>
+                }
             </Category>
         </Section>
     );

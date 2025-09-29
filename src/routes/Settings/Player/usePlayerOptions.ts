@@ -245,6 +245,38 @@ const usePlayerOptions = (profile: Profile) => {
         }
     }), [profile.settings]);
 
+    const hardwareDecodingToggle = useMemo(() => ({
+        checked: profile.settings.hardwareDecoding,
+        onClick: () => {
+            core.transport.dispatch({
+                action: 'Ctx',
+                args: {
+                    action: 'UpdateSettings',
+                    args: {
+                        ...profile.settings,
+                        hardwareDecoding: !profile.settings.hardwareDecoding
+                    }
+                }
+            });
+        }
+    }), [profile.settings]);
+
+    const pauseOnMinimizeToggle = useMemo(() => ({
+        checked: profile.settings.pauseOnMinimize,
+        onClick: () => {
+            core.transport.dispatch({
+                action: 'Ctx',
+                args: {
+                    action: 'UpdateSettings',
+                    args: {
+                        ...profile.settings,
+                        pauseOnMinimize: !profile.settings.pauseOnMinimize,
+                    }
+                }
+            });
+        }
+    }), [profile.settings]);
+
     return {
         subtitlesLanguageSelect,
         subtitlesSizeSelect,
@@ -258,6 +290,8 @@ const usePlayerOptions = (profile: Profile) => {
         nextVideoPopupDurationSelect,
         bingeWatchingToggle,
         playInBackgroundToggle,
+        hardwareDecodingToggle,
+        pauseOnMinimizeToggle,
     };
 };
 
