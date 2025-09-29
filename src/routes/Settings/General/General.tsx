@@ -38,23 +38,6 @@ const General = forwardRef<HTMLDivElement, Props>(({ profile }: Props, ref) => {
         loadDataExport();
     }, []);
 
-    const onCalendarSubscribe = useCallback(() => {
-        if (!profile.auth) return;
-
-        const protocol = platform.name === 'ios' ? 'webcal' : 'https';
-        const url = `${protocol}://www.strem.io/calendar/${profile.auth.user._id}.ics`;
-        platform.openExternal(url);
-
-        toast.show({
-            type: 'success',
-            title: platform.name === 'ios' ?
-                t('SETTINGS_SUBSCRIBE_CALENDAR_IOS_TOAST') :
-                t('SETTINGS_SUBSCRIBE_CALENDAR_TOAST'),
-            timeout: 25000
-        });
-        // Stremio 4 emits not documented event subscribeCalendar
-    }, [profile.auth]);
-
     const onToggleTrakt = useCallback(() => {
         if (!isTraktAuthenticated && profile.auth !== null && profile.auth.user !== null && typeof profile.auth.user._id === 'string') {
             platform.openExternal(`https://www.strem.io/trakt/auth/${profile.auth.user._id}`);
@@ -98,13 +81,6 @@ const General = forwardRef<HTMLDivElement, Props>(({ profile }: Props, ref) => {
                     <Link
                         label={t('SETTINGS_DATA_EXPORT')}
                         onClick={onExportData}
-                    />
-            }
-            {
-                profile?.auth?.user &&
-                    <Link
-                        label={t('SETTINGS_SUBSCRIBE_CALENDAR')}
-                        onClick={onCalendarSubscribe}
                     />
             }
             <Link
