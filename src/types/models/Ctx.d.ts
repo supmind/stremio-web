@@ -30,9 +30,6 @@ type Settings = {
     secondarySubtitlesLanguage: string | null,
     seekTimeDuration: number,
     seekShortTimeDuration: number,
-    streamingServerUrl: string,
-    remoteHttps: string | null,
-    streamingServerWarningDismissed: Date | null,
     subtitlesBackgroundColor: string,
     subtitlesBold: boolean,
     subtitlesFont: string,
@@ -71,16 +68,8 @@ type SearchHistoryItem = {
 
 type SearchHistory = SearchHistoryItem[];
 
-type StreamingServerUrl = {
-    url: string,
-    mtime: Date,
-};
-
-type StreamingServerUrls = StreamingServerUrl[];
-
 type Ctx = {
     profile: Profile,
     notifications: Notifications,
     searchHistory: SearchHistory,
-    streamingServerUrls: StreamingServerUrls,
 };

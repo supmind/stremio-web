@@ -21,7 +21,6 @@ const Player = forwardRef<HTMLDivElement, Props>(({ profile }: Props, ref) => {
         surroundSoundToggle,
         seekTimeDurationSelect,
         seekShortTimeDurationSelect,
-        playInExternalPlayerSelect,
         nextVideoPopupDurationSelect,
         bingeWatchingToggle,
         playInBackgroundToggle,
@@ -114,12 +113,6 @@ const Player = forwardRef<HTMLDivElement, Props>(({ profile }: Props, ref) => {
                 </Option>
             </Category>
             <Category icon={'glasses'} label={'SETTINGS_SECTION_ADVANCED'}>
-                <Option label={'SETTINGS_PLAY_IN_EXTERNAL_PLAYER'}>
-                    <MultiselectMenu
-                        className={'multiselect'}
-                        {...playInExternalPlayerSelect}
-                    />
-                </Option>
                 {
                     shell.active &&
                         <Option label={'SETTINGS_HWDEC'}>

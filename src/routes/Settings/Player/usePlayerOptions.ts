@@ -187,32 +187,6 @@ const usePlayerOptions = (profile: Profile) => {
         }
     }), [profile.settings]);
 
-    const playInExternalPlayerSelect = useMemo(() => ({
-        options: CONSTANTS.EXTERNAL_PLAYERS
-            .filter(({ platforms }) => platforms.includes(platform.name))
-            .map(({ label, value }) => ({
-                value,
-                label: t(label),
-            })),
-        value: profile.settings.playerType,
-        title: () => {
-            const selectedOption = CONSTANTS.EXTERNAL_PLAYERS.find(({ value }) => value === profile.settings.playerType);
-            return selectedOption ? t(selectedOption.label, { defaultValue: selectedOption.label }) : profile.settings.playerType;
-        },
-        onSelect: (value: string) => {
-            core.transport.dispatch({
-                action: 'Ctx',
-                args: {
-                    action: 'UpdateSettings',
-                    args: {
-                        ...profile.settings,
-                        playerType: value
-                    }
-                }
-            });
-        }
-    }), [profile.settings]);
-
     const nextVideoPopupDurationSelect = useMemo(() => ({
         options: CONSTANTS.NEXT_VIDEO_POPUP_DURATIONS.map((duration) => ({
             value: `${duration}`,
@@ -313,7 +287,6 @@ const usePlayerOptions = (profile: Profile) => {
         surroundSoundToggle,
         seekTimeDurationSelect,
         seekShortTimeDurationSelect,
-        playInExternalPlayerSelect,
         nextVideoPopupDurationSelect,
         bingeWatchingToggle,
         playInBackgroundToggle,

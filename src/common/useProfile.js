@@ -2,18 +2,7 @@
 
 const useModelState = require('stremio/common/useModelState');
 
-const map = (ctx) => ({
-    ...ctx.profile,
-    settings: {
-        ...ctx.profile.settings,
-        streamingServerWarningDismissed: new Date(
-            typeof ctx.profile.settings.streamingServerWarningDismissed === 'string' ?
-                ctx.profile.settings.streamingServerWarningDismissed
-                :
-                NaN
-        )
-    }
-});
+const map = (ctx) => ctx.profile;
 
 const useProfile = () => {
     return useModelState({ model: 'ctx', map });

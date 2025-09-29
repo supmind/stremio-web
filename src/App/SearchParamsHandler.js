@@ -2,14 +2,9 @@
 
 const React = require('react');
 const isEqual = require('lodash.isequal');
-const { withCoreSuspender, useProfile, useToast } = require('stremio/common');
-const { useServices } = require('stremio/services');
+const { withCoreSuspender } = require('stremio/common');
 
 const SearchParamsHandler = () => {
-    const { core } = useServices();
-    const profile = useProfile();
-    const toast = useToast();
-
     const [searchParams, setSearchParams] = React.useState({});
 
     const onLocationChange = () => {
@@ -23,32 +18,7 @@ const SearchParamsHandler = () => {
     };
 
     React.useEffect(() => {
-        const { streamingServerUrl } = searchParams;
-
-        if (streamingServerUrl) {
-            core.transport.dispatch({
-                action: 'Ctx',
-                args: {
-                    action: 'UpdateSettings',
-                    args: {
-                        ...profile.settings,
-                        streamingServerUrl,
-                    },
-                },
-            });
-            core.transport.dispatch({
-                action: 'Ctx',
-                args: {
-                    action: 'AddServerUrl',
-                    args: streamingServerUrl,
-                },
-            });
-            toast.show({
-                type: 'success',
-                title: `Using streaming server at ${streamingServerUrl}`,
-                timeout: 4000,
-            });
-        }
+        // NOTE: searchParams are handled here
     }, [searchParams]);
 
     React.useEffect(() => {

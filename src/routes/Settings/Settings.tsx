@@ -4,32 +4,27 @@ import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from '
 import classnames from 'classnames';
 import throttle from 'lodash.throttle';
 import { useRouteFocused } from 'stremio-router';
-import { useProfile, useStreamingServer, withCoreSuspender } from 'stremio/common';
+import { useProfile, withCoreSuspender } from 'stremio/common';
 import { MainNavBars } from 'stremio/components';
 import { SECTIONS } from './constants';
 import Menu from './Menu';
 import General from './General';
 import Player from './Player';
-import Streaming from './Streaming';
 import Shortcuts from './Shortcuts';
-import Info from './Info';
 import styles from './Settings.less';
 
 const Settings = () => {
     const { routeFocused } = useRouteFocused();
     const profile = useProfile();
-    const streamingServer = useStreamingServer();
 
     const sectionsContainerRef = useRef<HTMLDivElement>(null);
     const generalSectionRef = useRef<HTMLDivElement>(null);
     const playerSectionRef = useRef<HTMLDivElement>(null);
-    const streamingServerSectionRef = useRef<HTMLDivElement>(null);
     const shortcutsSectionRef = useRef<HTMLDivElement>(null);
 
     const sections = useMemo(() => ([
         { ref: generalSectionRef, id: SECTIONS.GENERAL },
         { ref: playerSectionRef, id: SECTIONS.PLAYER },
-        { ref: streamingServerSectionRef, id: SECTIONS.STREAMING },
         { ref: shortcutsSectionRef, id: SECTIONS.SHORTCUTS },
     ]), []);
 
@@ -76,7 +71,6 @@ const Settings = () => {
             <div className={classnames(styles['settings-content'], 'animation-fade-in')}>
                 <Menu
                     selected={selectedSectionId}
-                    streamingServer={streamingServer}
                     onSelect={onMenuSelect}
                 />
 
@@ -89,13 +83,7 @@ const Settings = () => {
                         ref={playerSectionRef}
                         profile={profile}
                     />
-                    <Streaming
-                        ref={streamingServerSectionRef}
-                        profile={profile}
-                        streamingServer={streamingServer}
-                    />
                     <Shortcuts ref={shortcutsSectionRef} />
-                    <Info streamingServer={streamingServer} />
                 </div>
             </div>
         </MainNavBars>

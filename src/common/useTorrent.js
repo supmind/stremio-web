@@ -4,11 +4,9 @@ const React = require('react');
 const magnet = require('magnet-uri');
 const { useServices } = require('stremio/services');
 const useToast = require('stremio/common/Toast/useToast');
-const useStreamingServer = require('stremio/common/useStreamingServer');
 
 const useTorrent = () => {
     const { core } = useServices();
-    const streamingServer = useStreamingServer();
     const toast = useToast();
     const createTorrentTimeout = React.useRef(null);
     const createTorrentFromMagnet = React.useCallback((text) => {
@@ -30,18 +28,22 @@ const useTorrent = () => {
                 });
             }, 10000);
         }
-    }, []);
+    }, [core.transport, toast]);
     React.useEffect(() => {
-        if (streamingServer.torrent !== null) {
-            const [, { type }] = streamingServer.torrent;
-            if (type === 'Ready') {
-                clearTimeout(createTorrentTimeout.current);
+        const onStreamingServerUpdate = ({ torrent }) => {
+            if (torrent !== null) {
+                const [, { type }] = torrent;
+                if (type === 'Ready') {
+                    clearTimeout(createTorrentTimeout.current);
+                }
             }
-        }
-    }, [streamingServer.torrent]);
-    React.useEffect(() => {
-        return () => clearTimeout(createTorrentTimeout.current);
-    }, []);
+        };
+        core.transport.on('streaming_server', onStreamingServerUpdate);
+        return () => {
+            core.transport.off('streaming_server', onStreamingServerUpdate);
+            clearTimeout(createTorrentTimeout.current);
+        };
+    }, [core.transport]);
     return {
         createTorrentFromMagnet
     };
