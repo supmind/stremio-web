@@ -40,7 +40,7 @@ module.exports = (env, argv) => ({
     devtool: argv.mode === 'production' ? 'source-map' : 'eval-source-map',
     entry: {
         main: './src/index.js',
-        worker: './node_modules/@stremio/stremio-core-web/worker.js'
+        worker: './src/patches/worker.js'
     },
     output: {
         path: path.join(__dirname, 'build'),
