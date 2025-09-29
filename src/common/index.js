@@ -23,7 +23,6 @@ const useOnScrollToBottom = require('./useOnScrollToBottom');
 const useProfile = require('./useProfile');
 const { default: useSettings } = require('./useSettings');
 const { default: useShell } = require('./useShell');
-const useStreamingServer = require('./useStreamingServer');
 const { default: useTimeout } = require('./useTimeout');
 const useTorrent = require('./useTorrent');
 const useTranslate = require('./useTranslate');
@@ -59,7 +58,6 @@ module.exports = {
     useProfile,
     useSettings,
     useShell,
-    useStreamingServer,
     useTimeout,
     useTorrent,
     useTranslate,
