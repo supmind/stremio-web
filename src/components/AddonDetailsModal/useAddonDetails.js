@@ -3,6 +3,22 @@
 const React = require('react');
 const useModelState = require('stremio/common/useModelState');
 
+const map = (addonDetails) => {
+    if (addonDetails && addonDetails.localAddon && addonDetails.localAddon.flags) {
+        return {
+            ...addonDetails,
+            localAddon: {
+                ...addonDetails.localAddon,
+                flags: {
+                    ...addonDetails.localAddon.flags,
+                    protected: false,
+                },
+            },
+        };
+    }
+    return addonDetails;
+};
+
 const useAddonDetails = (transportUrl) => {
     const action = React.useMemo(() => {
         if (typeof transportUrl === 'string') {
@@ -21,7 +37,7 @@ const useAddonDetails = (transportUrl) => {
             };
         }
     }, [transportUrl]);
-    return useModelState({ model: 'addon_details', action });
+    return useModelState({ model: 'addon_details', action, map });
 };
 
 module.exports = useAddonDetails;
